@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ZooBio — Interactive Zoology Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-brand">
+      <span class="nav-icon">🔬</span>
+      <span class="nav-title">ZooBio</span>
+    </div>
+    <div class="nav-menu" id="navMenu">
+      <button class="nav-btn active" data-page="home">Introduction</button>
+      <button class="nav-btn" data-page="dissection">Dissection Lab</button>
+      <button class="nav-btn" data-page="classification">Classification</button>
+      <button class="nav-btn" data-page="developer">Developer</button>
+    </div>
+    <!-- Hamburger / three-dot toggle for mobile -->
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ===== PAGE 1: HOME ===== -->
+  <section class="page active" id="page-home">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-bg-pattern"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">Welcome to the Virtual Laboratory</p>
+        <h1 class="hero-title">The Science of<br/><em>Animal Life</em></h1>
+        <p class="hero-sub">Explore anatomy, classification and dissection without harm — a digital companion for college zoology students and faculty.</p>
+        <button class="btn-primary" onclick="goToPage('dissection')">Open Dissection Lab →</button>
+      </div>
+      <div class="hero-visual">
+        <div class="dna-helix" aria-hidden="true">
+          <div class="strand strand-a"></div>
+          <div class="strand strand-b"></div>
+          <div class="rung r1"></div><div class="rung r2"></div>
+          <div class="rung r3"></div><div class="rung r4"></div>
+          <div class="rung r5"></div><div class="rung r6"></div>
+          <div class="rung r7"></div><div class="rung r8"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zoology Intro -->
+    <div class="section-wrap">
+      <div class="section-label">Subject Overview</div>
+      <h2 class="section-title">What is Zoology?</h2>
+      <div class="two-col">
+        <p>Zoology is the branch of biology that studies the animal kingdom — their structure, physiology, classification, behaviour, and evolution. From the microscopic <em>Paramecium</em> to the blue whale, zoology unifies every organism that possesses eukaryotic cells and heterotrophic nutrition.</p>
+        <p>As a practical science, zoology connects classroom theory with hands-on observation. Dissection reveals the inner architecture of life; taxonomy places each organism within the grand tree of biodiversity. This virtual lab bridges both worlds — letting you observe, rotate, and explore without the ethical cost of a real specimen.</p>
+      </div>
+    </div>
+
+    <!-- 6 Kingdoms -->
+    <div class="section-wrap alt-bg">
+      <div class="section-label">Biological Classification</div>
+      <h2 class="section-title">The Six Kingdoms of Life</h2>
+      <p class="section-intro">Modern biology recognises six kingdoms, each defined by cell structure, nutrition strategy and evolutionary lineage.</p>
+      <div class="kingdom-grid" id="kingdomGrid">
+        <!-- Injected by kingdoms.js -->
+      </div>
+    </div>
+
+    <!-- Quick nav cards -->
+    <div class="section-wrap">
+      <h2 class="section-title">What would you like to explore?</h2>
+      <div class="nav-cards">
+        <div class="nav-card" onclick="goToPage('dissection')">
+          <div class="nav-card-icon">🫀</div>
+          <h3>Dissection Lab</h3>
+          <p>Rotate 3-D models of a cockroach and Channa punctata. Trace alimentary canals and identify organs.</p>
+          <span class="nav-card-link">Open Lab →</span>
+        </div>
+        <div class="nav-card" onclick="goToPage('classification')">
+          <div class="nav-card-icon">🌿</div>
+          <h3>Classification Guide</h3>
+          <p>Key features, functions and the biological logic behind grouping organisms into taxa.</p>
+          <span class="nav-card-link">Read Guide →</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== PAGE 2: DISSECTION LAB ===== -->
+  <section class="page" id="page-dissection">
+
+    <div class="lab-header">
+      <div class="section-label">Virtual Dissection Lab</div>
+      <h2 class="section-title">Select a Specimen</h2>
+      <p class="section-intro">Choose a specimen below. Use the controls to rotate the model and toggle anatomical layers. Click any organ to reveal its details.</p>
+    </div>
+
+    <div class="specimen-tabs">
+      <button class="spec-tab active" data-specimen="cockroach">🪲 Periplaneta americana</button>
+      <button class="spec-tab" data-specimen="channa">🐟 Channa punctata</button>
+    </div>
+
+    <!-- Cockroach Model -->
+    <div class="specimen-panel active" id="spec-cockroach">
+      <div class="lab-layout">
+        <div class="model-viewport" id="cockroach-viewport">
+          <canvas id="cockroach-canvas" width="520" height="420"></canvas>
+          <div class="model-controls">
+            <button class="ctrl-btn" id="ck-rotate-left" title="Rotate Left">◀</button>
+            <button class="ctrl-btn" id="ck-dorsal" title="Dorsal View">⬆ Dorsal</button>
+            <button class="ctrl-btn" id="ck-ventral" title="Ventral View">⬇ Ventral</button>
+            <button class="ctrl-btn" id="ck-lateral" title="Lateral View">↔ Lateral</button>
+            <button class="ctrl-btn" id="ck-rotate-right" title="Rotate Right">▶</button>
+          </div>
+          <div class="layer-toggles">
+            <label><input type="checkbox" id="ck-show-gut" checked> Alimentary Canal</label>
+            <label><input type="checkbox" id="ck-show-nervous" checked> Nervous System</label>
+            <label><input type="checkbox" id="ck-show-reproductive"> Reproductive</label>
+          </div>
+          <div class="view-badge" id="ck-view-badge">Dorsal View</div>
+        </div>
+
+        <div class="organ-panel">
+          <h3 class="organ-panel-title">Organ Information</h3>
+          <div class="organ-detail" id="cockroach-organ-detail">
+            <p class="organ-hint">Click on a highlighted region in the model to see organ details here.</p>
+          </div>
+          <div class="organ-list">
+            <h4>Tap to highlight:</h4>
+            <div class="organ-chip-wrap" id="ck-organ-chips"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="specimen-info">
+        <h3>Periplaneta americana — American Cockroach</h3>
+        <div class="info-grid">
+          <div class="info-card"><strong>Phylum</strong><span>Arthropoda</span></div>
+          <div class="info-card"><strong>Class</strong><span>Insecta</span></div>
+          <div class="info-card"><strong>Order</strong><span>Blattodea</span></div>
+          <div class="info-card"><strong>Body Length</strong><span>35–40 mm</span></div>
+          <div class="info-card"><strong>Symmetry</strong><span>Bilateral</span></div>
+          <div class="info-card"><strong>Coelom</strong><span>Haemocoelom</span></div>
+        </div>
+        <p class="specimen-desc">The cockroach is one of the most studied model organisms in invertebrate zoology. Its well-defined alimentary canal, tracheae, and ganglionic nerve cord make it an ideal specimen for understanding insect physiology.</p>
+      </div>
+    </div>
+
+    <!-- Channa Model -->
+    <div class="specimen-panel" id="spec-channa">
+      <div class="lab-layout">
+        <div class="model-viewport" id="channa-viewport">
+          <canvas id="channa-canvas" width="520" height="420"></canvas>
+          <div class="model-controls">
+            <button class="ctrl-btn" id="ch-rotate-left" title="Rotate Left">◀</button>
+            <button class="ctrl-btn" id="ch-dorsal" title="Dorsal View">⬆ Dorsal</button>
+            <button class="ctrl-btn" id="ch-ventral" title="Ventral View">⬇ Ventral</button>
+            <button class="ctrl-btn" id="ch-lateral" title="Lateral View">↔ Lateral</button>
+            <button class="ctrl-btn" id="ch-rotate-right" title="Rotate Right">▶</button>
+          </div>
+          <div class="layer-toggles">
+            <label><input type="checkbox" id="ch-show-gut" checked> Alimentary Canal</label>
+            <label><input type="checkbox" id="ch-show-nervous" checked> Nervous System</label>
+            <label><input type="checkbox" id="ch-show-reproductive"> Reproductive</label>
+          </div>
+          <div class="view-badge" id="ch-view-badge">Lateral View</div>
+        </div>
+
+        <div class="organ-panel">
+          <h3 class="organ-panel-title">Organ Information</h3>
+          <div class="organ-detail" id="channa-organ-detail">
+            <p class="organ-hint">Click on a highlighted region in the model to see organ details here.</p>
+          </div>
+          <div class="organ-list">
+            <h4>Tap to highlight:</h4>
+            <div class="organ-chip-wrap" id="ch-organ-chips"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="specimen-info">
+        <h3>Channa punctata — Spotted Snakehead</h3>
+        <div class="info-grid">
+          <div class="info-card"><strong>Phylum</strong><span>Chordata</span></div>
+          <div class="info-card"><strong>Class</strong><span>Actinopterygii</span></div>
+          <div class="info-card"><strong>Order</strong><span>Anabantiformes</span></div>
+          <div class="info-card"><strong>Body Length</strong><span>Up to 30 cm</span></div>
+          <div class="info-card"><strong>Symmetry</strong><span>Bilateral</span></div>
+          <div class="info-card"><strong>Respiration</strong><span>Gills + Accessory air organ</span></div>
+        </div>
+        <p class="specimen-desc">Channa punctata is a common freshwater teleost of South Asia, widely used in practical zoology owing to its accessible internal anatomy and clear organ demarcation. It possesses both gill respiration and a suprabranchial accessory respiratory organ — a fascinating adaptation for oxygen-scarce waters.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== PAGE 3: CLASSIFICATION ===== -->
+  <section class="page" id="page-classification">
+
+    <div class="section-wrap">
+      <div class="section-label">Biological Classification</div>
+      <h2 class="section-title">Why We Classify Life</h2>
+      <div class="two-col">
+        <p>Biological classification — or <em>taxonomy</em> — is the science of naming, describing and grouping organisms based on shared characteristics and evolutionary history. Devised systematically by Carl Linnaeus in 1758, the hierarchical system gives every organism a unique binomial name and a position within a nested set of ranks: Domain → Kingdom → Phylum → Class → Order → Family → Genus → Species.</p>
+        <p>Classification is not merely administrative. It encodes evolutionary relationships (phylogeny), predicts biochemical and physiological properties, underpins conservation decisions, and allows scientists worldwide to communicate precisely about the same organism. Without it, comparative zoology would be impossible.</p>
+      </div>
+    </div>
+
+    <div class="section-wrap alt-bg">
+      <div class="section-label">Taxonomic Hierarchy</div>
+      <h2 class="section-title">Ranks of Classification</h2>
+      <div class="taxon-ladder" id="taxonLadder"></div>
+    </div>
+
+    <div class="section-wrap">
+      <div class="section-label">Criteria</div>
+      <h2 class="section-title">Key Features Used in Classification</h2>
+      <div class="criteria-grid" id="criteriaGrid"></div>
+    </div>
+
+    <div class="section-wrap alt-bg">
+      <div class="section-label">Major Animal Phyla</div>
+      <h2 class="section-title">Animal Kingdom — Key Phyla</h2>
+      <div class="phyla-accordion" id="phylaAccordion"></div>
+    </div>
+
+    <div class="section-wrap">
+      <div class="section-label">Five Kingdom vs Six Kingdom</div>
+      <h2 class="section-title">Evolution of Classification Systems</h2>
+      <div class="timeline" id="classTimeline"></div>
+    </div>
+
+  </section>
+
+  <!-- ===== PAGE 4: DEVELOPER ===== -->
+  <section class="page" id="page-developer">
+
+    <div class="section-wrap">
+      <div class="section-label">About This Project</div>
+      <h2 class="section-title">The Developer</h2>
+
+      <div class="dev-card">
+        <div class="dev-card-top">
+          <div class="dev-avatar" aria-hidden="true">🪲</div>
+          <div class="dev-id">
+            <h3 class="dev-name">debangsh_bio-wala</h3>
+            <p class="dev-role">B.Sc Zoology Student</p>
+            <a class="dev-insta" href="https://www.instagram.com/debangshuooppp?igsh=dXR1dm82NGt5cHE4" target="_blank" rel="noopener noreferrer">
+              <span class="dev-insta-icon">📷</span> @debangshuooppp — visit Instagram
+            </a>
+          </div>
+        </div>
+
+        <div class="dev-divider"></div>
+
+        <div class="dev-note">
+          <p class="dev-eyebrow">Why this site exists</p>
+          <p>Zoology_lab was built so that cockroaches, <em>Channa punctata</em>, and the many other animals sacrificed each semester for zoology practicals can still be studied — without losing their lives. They may look unremarkable, or even unsettling, to most people. But every organism, however small or "ugly" it seems, has just as much right to its life as we do. This site is a small attempt to give students the same hands-on learning, while sparing these creatures the cost.</p>
+        </div>
+
+        <div class="dev-note">
+          <p class="dev-eyebrow">A personal note</p>
+          <p>Performing these dissections in practicals affected me more than I expected — watching a living creature lose its life for a lesson left a real mark. One reflection that stayed with me came from an unlikely place: a villain's arc in <em>Devil May Cry</em>, whose twisted idea of "strength" and what it costs made me question how casually we dismiss creatures we consider lesser. This project grew, in part, out of that rethinking — a small step toward more respectful, life-conscious learning.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="canvas-cockroach.js"></script>
+  <script src="canvas-channa.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
