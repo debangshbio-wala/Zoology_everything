@@ -151,11 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCriteria();
   renderPhyla();
   renderTimeline();
-  initSpecimenTabs();
   initNavToggle();
   initNavButtons();
   initNavScroll();
 
-  if (window.initCockroach) window.initCockroach();
-  if (window.initChanna) window.initChanna();
+  // SVG-based dissection lab (replaces canvas)
+  if (window.initSVGViewers) window.initSVGViewers();
 });
