@@ -98,7 +98,7 @@
     <div class="lab-header">
       <div class="section-label">Virtual Dissection Lab</div>
       <h2 class="section-title">Select a Specimen</h2>
-      <p class="section-intro">Choose a specimen below. Use the controls to rotate the model and toggle anatomical layers. Click any organ to reveal its details.</p>
+      <p class="section-intro">Clean 2-D anatomical diagrams — click any coloured organ to reveal details. Switch views using the buttons. Scroll down for reference videos.</p>
     </div>
 
     <div class="specimen-tabs">
@@ -106,38 +106,31 @@
       <button class="spec-tab" data-specimen="channa">🐟 Channa punctata</button>
     </div>
 
-    <!-- Cockroach Model -->
+    <!-- ── COCKROACH PANEL ── -->
     <div class="specimen-panel active" id="spec-cockroach">
       <div class="lab-layout">
-        <div class="model-viewport" id="cockroach-viewport">
-          <canvas id="cockroach-canvas" width="520" height="420"></canvas>
-          <div class="model-controls">
-            <button class="ctrl-btn" id="ck-rotate-left" title="Rotate Left">◀</button>
-            <button class="ctrl-btn" id="ck-dorsal" title="Dorsal View">⬆ Dorsal</button>
-            <button class="ctrl-btn" id="ck-ventral" title="Ventral View">⬇ Ventral</button>
-            <button class="ctrl-btn" id="ck-lateral" title="Lateral View">↔ Lateral</button>
-            <button class="ctrl-btn" id="ck-rotate-right" title="Rotate Right">▶</button>
-          </div>
-          <div class="layer-toggles">
-            <label><input type="checkbox" id="ck-show-gut" checked> Alimentary Canal</label>
-            <label><input type="checkbox" id="ck-show-nervous" checked> Nervous System</label>
-            <label><input type="checkbox" id="ck-show-reproductive"> Reproductive</label>
-          </div>
-          <div class="view-badge" id="ck-view-badge">Dorsal View</div>
+
+        <!-- SVG Diagram Viewport -->
+        <div class="model-viewport">
+          <div class="view-badge" id="ck-view-badge">External (Dorsal)</div>
+          <div id="svg-wrap-cockroach" class="svg-wrap"></div>
+          <div class="model-controls" id="view-btns-cockroach"></div>
         </div>
 
+        <!-- Organ Info Panel -->
         <div class="organ-panel">
           <h3 class="organ-panel-title">Organ Information</h3>
           <div class="organ-detail" id="cockroach-organ-detail">
-            <p class="organ-hint">Click on a highlighted region in the model to see organ details here.</p>
+            <p class="organ-hint">👆 Click any coloured part in the diagram — or tap a chip below.</p>
           </div>
           <div class="organ-list">
-            <h4>Tap to highlight:</h4>
+            <h4>Quick select:</h4>
             <div class="organ-chip-wrap" id="ck-organ-chips"></div>
           </div>
         </div>
       </div>
 
+      <!-- Taxonomy strip -->
       <div class="specimen-info">
         <h3>Periplaneta americana — American Cockroach</h3>
         <div class="info-grid">
@@ -148,53 +141,58 @@
           <div class="info-card"><strong>Symmetry</strong><span>Bilateral</span></div>
           <div class="info-card"><strong>Coelom</strong><span>Haemocoelom</span></div>
         </div>
-        <p class="specimen-desc">The cockroach is one of the most studied model organisms in invertebrate zoology. Its well-defined alimentary canal, tracheae, and ganglionic nerve cord make it an ideal specimen for understanding insect physiology.</p>
+        <p class="specimen-desc">The cockroach is one of the most studied model organisms in invertebrate zoology. Its biting-chewing mouthparts, well-defined alimentary canal, Malpighian tubules and double ventral nerve cord make it ideal for understanding insect body organisation.</p>
+      </div>
+
+      <!-- Video Section -->
+      <div class="video-section">
+        <div class="section-label" style="padding:0 36px">Reference Videos</div>
+        <h3 class="video-section-title">Watch Dissection Videos</h3>
+        <p class="video-note">These links search YouTube for the best available practical videos for each topic.</p>
+        <div class="video-grid" id="videos-cockroach"></div>
       </div>
     </div>
 
-    <!-- Channa Model -->
+    <!-- ── CHANNA PANEL ── -->
     <div class="specimen-panel" id="spec-channa">
       <div class="lab-layout">
-        <div class="model-viewport" id="channa-viewport">
-          <canvas id="channa-canvas" width="520" height="420"></canvas>
-          <div class="model-controls">
-            <button class="ctrl-btn" id="ch-rotate-left" title="Rotate Left">◀</button>
-            <button class="ctrl-btn" id="ch-dorsal" title="Dorsal View">⬆ Dorsal</button>
-            <button class="ctrl-btn" id="ch-ventral" title="Ventral View">⬇ Ventral</button>
-            <button class="ctrl-btn" id="ch-lateral" title="Lateral View">↔ Lateral</button>
-            <button class="ctrl-btn" id="ch-rotate-right" title="Rotate Right">▶</button>
-          </div>
-          <div class="layer-toggles">
-            <label><input type="checkbox" id="ch-show-gut" checked> Alimentary Canal</label>
-            <label><input type="checkbox" id="ch-show-nervous" checked> Nervous System</label>
-            <label><input type="checkbox" id="ch-show-reproductive"> Reproductive</label>
-          </div>
-          <div class="view-badge" id="ch-view-badge">Lateral View</div>
+
+        <div class="model-viewport">
+          <div class="view-badge" id="ch-view-badge">External (Lateral)</div>
+          <div id="svg-wrap-channa" class="svg-wrap"></div>
+          <div class="model-controls" id="view-btns-channa"></div>
         </div>
 
         <div class="organ-panel">
           <h3 class="organ-panel-title">Organ Information</h3>
           <div class="organ-detail" id="channa-organ-detail">
-            <p class="organ-hint">Click on a highlighted region in the model to see organ details here.</p>
+            <p class="organ-hint">👆 Click any coloured part in the diagram — or tap a chip below.</p>
           </div>
           <div class="organ-list">
-            <h4>Tap to highlight:</h4>
+            <h4>Quick select:</h4>
             <div class="organ-chip-wrap" id="ch-organ-chips"></div>
           </div>
         </div>
       </div>
 
       <div class="specimen-info">
-        <h3>Channa punctata — Spotted Snakehead</h3>
+        <h3>Channa punctata — Spotted Snakehead (Lata Fish)</h3>
         <div class="info-grid">
           <div class="info-card"><strong>Phylum</strong><span>Chordata</span></div>
           <div class="info-card"><strong>Class</strong><span>Actinopterygii</span></div>
           <div class="info-card"><strong>Order</strong><span>Anabantiformes</span></div>
           <div class="info-card"><strong>Body Length</strong><span>Up to 30 cm</span></div>
           <div class="info-card"><strong>Symmetry</strong><span>Bilateral</span></div>
-          <div class="info-card"><strong>Respiration</strong><span>Gills + Accessory air organ</span></div>
+          <div class="info-card"><strong>Respiration</strong><span>Gills + Air Organ</span></div>
         </div>
-        <p class="specimen-desc">Channa punctata is a common freshwater teleost of South Asia, widely used in practical zoology owing to its accessible internal anatomy and clear organ demarcation. It possesses both gill respiration and a suprabranchial accessory respiratory organ — a fascinating adaptation for oxygen-scarce waters.</p>
+        <p class="specimen-desc">Channa punctata (Lata fish) is a common South Asian teleost prized in zoology practicals for its clear organ anatomy. Its suprabranchial air organ allows it to breathe atmospheric air — enabling survival even when water dries up.</p>
+      </div>
+
+      <div class="video-section">
+        <div class="section-label" style="padding:0 36px">Reference Videos</div>
+        <h3 class="video-section-title">Watch Dissection Videos</h3>
+        <p class="video-note">These links search YouTube for the best available practical videos for each topic.</p>
+        <div class="video-grid" id="videos-channa"></div>
       </div>
     </div>
 
@@ -261,7 +259,7 @@
 
         <div class="dev-note">
           <p class="dev-eyebrow">Why this site exists</p>
-          <p>Zoology_lab was built so that cockroaches, <em>Channa punctata</em>, and the many other animals sacrificed each semester for zoology practicals can still be studied — without losing their lives. They may look unremarkable, or even unsettling, to most people. But every organism, however small or "ugly" it seems, has just as much right to its life as we do. This site is a small attempt to give students the same hands-on learning, while sparing these creatures the cost.</p>
+          <p>ZooBio was built so that cockroaches, <em>Channa punctata</em>, and the many other animals sacrificed each semester for zoology practicals can still be studied — without losing their lives. They may look unremarkable, or even unsettling, to most people. But every organism, however small or "ugly" it seems, has just as much right to its life as we do. This site is a small attempt to give students the same hands-on learning, while sparing these creatures the cost.</p>
         </div>
 
         <div class="dev-note">
@@ -275,8 +273,8 @@
 
   <!-- Scripts -->
   <script src="data.js"></script>
-  <script src="canvas-cockroach.js"></script>
-  <script src="canvas-channa.js"></script>
+  <script src="svg-diagrams.js"></script>
+  <script src="svg-viewer.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
